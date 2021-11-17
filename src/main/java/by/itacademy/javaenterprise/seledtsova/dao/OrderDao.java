@@ -6,11 +6,9 @@ import java.util.List;
 
 public interface OrderDao {
 
-    Order addOrder(Order order);
+    Order saveOrder(Order order);
 
     List<Order> getAll();
 
-    void deleteOrderById(Integer orderId);
-
-    Order findOrderByCustomerId(Integer customerID);
+    void deleteOrderById(Long orderId);
 }
