@@ -12,15 +12,11 @@ import java.util.List;
 public class CustomerService {
 
     @Autowired
+    @Qualifier("customerDaoBean")
     private CustomerDao customerDao;
 
-    @Qualifier("customerDaoBean")
     public List<Customer> getAllCustomer() {
         return customerDao.getAll();
-    }
-
-    public void setCustomerDao(CustomerDao customerDao) {
-        this.customerDao = customerDao;
     }
 }
 

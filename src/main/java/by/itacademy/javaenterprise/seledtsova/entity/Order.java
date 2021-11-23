@@ -1,21 +1,25 @@
 package by.itacademy.javaenterprise.seledtsova.entity;
 
-
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@Builder
 @AllArgsConstructor
 public class Order {
 
-    private Integer orderId;
-    private Integer CustomerId;
-    private String dateOrder;
+    private Long orderId;
+    private Long customerId;
+    private Integer quantity;
     private List<Customer> customers;
+
+    public Order(Long orderId, Long customerId, Integer quantity) {
+        this.orderId = orderId;
+        this.customerId = customerId;
+        this.quantity = quantity;
+    }
+
+    public Order() {
+    }
 }

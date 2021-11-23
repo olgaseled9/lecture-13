@@ -1,5 +1,6 @@
-package by.itacademy.javaenterprise.seledtsova.config;
+package by.itacademy.javaenterprise.seledtsova;
 
+import by.itacademy.javaenterprise.seledtsova.config.SpringConfig;
 import by.itacademy.javaenterprise.seledtsova.dao.CustomerDao;
 import by.itacademy.javaenterprise.seledtsova.dao.OrderDao;
 import by.itacademy.javaenterprise.seledtsova.dao.impl.CustomerDaoImpl;
@@ -12,29 +13,26 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.sql.SQLException;
 
-public class RunnerSpring {
+public class Runner {
 
-    private final static Logger logger = LoggerFactory.getLogger(RunnerSpring.class);
+    private static final Logger logger = LoggerFactory.getLogger(Runner.class);
 
     public static void main(String[] args) throws SQLException {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
         OrderDao orderDao = context.getBean("orderDaoBean", OrderDaoImpl.class);
         logger.info("The bin orderDao class was created successfully");
-        Order order = new Order();
-        order.setOrderId(121311);
-        order.setCustomerId(14787);
-        order.setDateOrder("2021-09-21");
-        orderDao.addOrder(order);
-        System.out.println(orderDao.getAll());
-
         CustomerDao customerDao = context.getBean("customerDaoBean", CustomerDaoImpl.class);
         logger.info("The bin customerDao class was created successfully");
-        Customer customer = new Customer();
-        customer.setCustomerId(14788);
-        customer.setFirstName("Vasia");
-        customer.setLastName("Cannon");
-        customerDao.addCustomer(customer);
-        System.out.println(customerDao.getAll());
+        orderDao.getAll();
+        customerDao.saveCustomer(new Customer(25L, "Vasia", "Petrov"));
+        logger.info("Customer are added successfully");
+        orderDao.saveOrder(new Order(25L, 25L, 100));
+        logger.info("Order are added successfully");
+        orderDao.deleteOrderById(25L);
+        logger.info("Order delete successful");
+        customerDao.deleteCustomerById(25L);
+        logger.info("Customer delete successful");
+        customerDao.findCustomerByCustomerId(9L);
 
         context.close();
     }
